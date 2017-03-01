@@ -8,6 +8,6 @@ var app = express();
 const port = process.env.PORT || 4545
 app.use(express.static(publicPath));
 
-app.listen(4545, () => {
+app.listen(port, () => {
    console.log(`Server is up on port ${port}`);
 });
