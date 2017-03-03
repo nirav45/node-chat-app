@@ -6,10 +6,10 @@ socket.on('connect', function()  {
     //     text:'Hey, This is Nirav'
     // });
 
-    socket.emit('createMsg', {
-        to:'patel@gmail.com',
-        text:'Hello Nirav Patel'
-    });
+    // socket.emit('createMessage', {
+    //     to:'patel@gmail.com',
+    //     text:'Hello Nirav Patel'
+    // });
 });
 socket.on('disconnect', function() {
     console.log('Disconnected From Server.');
@@ -19,6 +19,6 @@ socket.on('newEmail' , function (email) {
     console.log('New email',email);
 });
 
-socket.on('newMsg', function (msg) {
-   console.log('New Msg',msg);
+socket.on('newMessage', function (message) {
+   console.log('New Message',message);
 });
