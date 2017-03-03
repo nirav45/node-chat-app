@@ -23,11 +23,18 @@ io.on('connection', (socket) => {
     //     console.log('createEmail',newEmail);
     // });
 
-    // socket.emit('newMessage',{
-    //     from:'nirav@gmail.com',
-    //     text:'Hi',
-    //     createdAt: 1234
-    // });
+    socket.emit('newMessage',{
+        from:'Admin',
+        text:'Welcome to the Chat App',
+        createdAt: new Date().getTime()
+    });
+
+    socket.broadcast.emit('newMessage', {
+        from: 'Admin',
+        text: 'New User Joined!',
+        createdAt: new Date().getTime()
+    });
+
     socket.on('createMessage', (message) => {
         console.log('createMessage',message);
         io.emit('newMessage',{
