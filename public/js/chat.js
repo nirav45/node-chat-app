@@ -18,7 +18,6 @@ function scrollToBottom () {
 
 socket.on('connect', function()  {
     var params = jQuery.deparam(window.location.search);
-
     socket.emit('join', params, function (err) {
         if(err) {
             alert(err);
@@ -128,4 +127,5 @@ locationButton.on('click', function () {
        locationButton.removeAttr('disabled').text('Send location');
        alert('Unable to fetch location.');
    });
+    jQuery('[name=message]').focus();
 });

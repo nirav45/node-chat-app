@@ -33,15 +33,22 @@ io.on('connection', (socket) => {
         if(!isRealString(params.name) || !isRealString(params.room)) {
            return callback('Name and Room are required.');
         }
+        params.name = params.name.trim().toUpperCase();
+        params.room = params.room.trim().toUpperCase();
+        console.log(params.name,params.room);
         socket.join(params.room);
         users.removeUser(socket.id);
-        users.addUser(socket.id, params.name, params.room);
+        if(users.addUser(socket.id, params.name, params.room)) {
+            io.to(params.room).emit('updateUserList', users.getUserList(params.room));
+            socket.emit('newMessage',generateMessage('Admin','Welcome to the Chat App.'));
 
-        io.to(params.room).emit('updateUserList', users.getUserList(params.room));
-        socket.emit('newMessage',generateMessage('Admin','Welcome to the Chat App.'));
+            socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin',`${params.name} has joined.`));
+            callback();
+        } else {
+            callback('Already Registered that Name.');
+        }
 
-        socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin',`${params.name} has joined.`));
-        callback();
+
     });
 
     // socket.emit('newMessage',generateMessage('Admin','Welcome to the Chat App.'));

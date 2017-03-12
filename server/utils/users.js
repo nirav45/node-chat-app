@@ -1,8 +1,8 @@
-[{
-    id: '/#12poiajdspfoif',
-    name: 'Nirav Patel',
-    room: 'The Office Fans'
-}]
+// [{
+//     id: '/#12poiajdspfoif',
+//     name: 'Nirav Patel',
+//     room: 'The Office Fans'
+// }]
 
 // addUser(id, name, room)
 // removeUser(id)
@@ -14,9 +14,16 @@ class Users {
         this.users = [];
     }
     addUser (id, name, room) {
-        var user = {id, name, room};
-        this.users.push(user);
-        return user;
+        var user = this.users.filter((user) => user.name === name && user.room === room)[0];
+        console.log(user);
+        if (!user) {
+            var user1 = {id, name, room};
+            this.users.push(user1);
+            console.log(user);
+            return user1;
+        } else {
+            return false;
+        }
     }
     removeUser (id) {
         var user = this.getUser(id);
